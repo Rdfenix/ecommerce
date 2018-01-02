@@ -78,6 +78,21 @@
 			return $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(idperson) ORDER BY b.desperson");
 		}
 
+		public function save()
+		{
+			$sql = new Sql();
+			$result = $sql->select("CALL sp_users_save(:DESPERSON, :DESLOGIN, :DESPASSWORD, :DESEMAIL, :NRPHONE, :INADMIN)", array(
+				":DESPERSON"=>$this->getdesperson(),
+				":DESLOGIN"=>$this->getdeslogin(),
+				":DESPASSWORD"=>$this->getdespassword(),
+				":DESEMAIL"=>$this->getdesemail(),
+				":NRPHONE"=>$this->getnrphone(),
+				":INADMIN"=>$thisgetinadmin()
+			));
+
+			$this->setData($result[0]);
+		}
+
 	}
 
 ?>
